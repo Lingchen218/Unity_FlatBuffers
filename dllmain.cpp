@@ -243,8 +243,13 @@ void _DLLExport readgunserializedGuidSize(const char* filename, int* outGuidSize
     
     auto net = GetGun(buffer_pointer);
     //net->serializedDependencyHash()->GetAsString();
-    int Guidsize = net->serializedGuid()->size();
-    *outGuidSize = Guidsize;
+    auto guid = net->serializedGuid();
+    if (guid != nullptr) {
+    	int Guidsize = guid->size();
+    	*outGuidSize = Guidsize;
+    	return;
+    }
+     *outGuidSize = 0;
     //return void _DLLExport();
 }
 
